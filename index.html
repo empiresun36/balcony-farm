@@ -43,6 +43,14 @@
   .done{text-align:center;display:none}
   .done .emoji{font-size:64px}
   #companionBox{display:none}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;
+    align-items:center;justify-content:center;padding:16px;z-index:10}
+  .modal.show{display:flex}
+  .modal .box{background:#fff;border-radius:16px;padding:28px 22px;max-width:420px;width:100%;
+    text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+  .modal .emoji{font-size:64px}
+  .modal h3{margin:4px 0 10px;font-size:26px;color:var(--green-d)}
+  .modal button{background:var(--green);margin-top:18px}
   footer{text-align:center;color:var(--muted);font-size:15px;margin:20px 0}
 </style>
 </head>
@@ -96,7 +104,7 @@
         <input type="text" id="companionName">
       </div>
 
-      <label class="f" for="note">備註（行動需求、飲食或其他說明）</label>
+      <label class="f" for="note">備註</label>
       <textarea id="note" rows="3"></textarea>
 
       <button type="submit" id="submitBtn">送出報名</button>
@@ -110,6 +118,15 @@
   </section>
 
   <footer>如有疑問請洽活動承辦人員</footer>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="box">
+    <div class="emoji">🌻</div>
+    <h3 id="modalTitle">報名已送出！</h3>
+    <p>謝謝您的報名，名額有限，將由工作人員與您電話確認。<br>11/14 下午 2:30 見！</p>
+    <button type="button" id="modalOk">好的</button>
+  </div>
 </div>
 
 <!-- 用於接收 Google Form 回應，避免頁面跳轉 -->
@@ -178,8 +195,14 @@ $('signupForm').addEventListener('submit', e => {
   setTimeout(() => {
     $('formCard').style.display = 'none';
     $('doneCard').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    $('modal').classList.add('show');
+    $('modalOk').focus();
   }, 800);
+});
+
+$('modalOk').addEventListener('click', () => {
+  $('modal').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
 </body>
