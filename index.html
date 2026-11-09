@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>陽台農家樂 活動報名</title>
+<style>
+  :root{
+    --green:#3f7d3a; --green-d:#2e5e2a; --tomato:#d9482b;
+    --bg:#f6f3ea; --card:#fff; --text:#2b2b2b; --muted:#666; --line:#ddd6c4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    font-size:19px;line-height:1.7}
+  .wrap{max-width:640px;margin:0 auto;padding:16px}
+  header{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;
+    border-radius:16px;padding:24px 20px;text-align:center}
+  header h1{margin:0 0 6px;font-size:30px;letter-spacing:2px}
+  header p{margin:0;opacity:.9}
+  .emoji{font-size:40px}
+  .card{background:var(--card);border-radius:16px;padding:20px;margin-top:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .card h2{margin:0 0 12px;font-size:22px;color:var(--green-d);
+    border-left:5px solid var(--tomato);padding-left:10px}
+  .info dt{font-weight:700;color:var(--green-d);margin-top:10px}
+  .info dd{margin:2px 0 0}
+  .badge{display:inline-block;background:#fdeee9;color:var(--tomato);
+    border-radius:8px;padding:2px 10px;font-weight:700}
+  label.f{display:block;font-weight:700;margin:16px 0 6px}
+  .req{color:var(--tomato)}
+  input[type=text],input[type=tel],textarea{width:100%;font-size:20px;padding:12px 14px;
+    border:2px solid var(--line);border-radius:10px;font-family:inherit}
+  input:focus,textarea:focus{outline:none;border-color:var(--green)}
+  .opt{display:flex;align-items:center;gap:10px;padding:12px 14px;margin:8px 0;
+    border:2px solid var(--line);border-radius:10px;cursor:pointer}
+  .opt input{width:24px;height:24px;accent-color:var(--green)}
+  .opt:has(input:checked){border-color:var(--green);background:#eef6ec}
+  button{width:100%;margin-top:22px;padding:16px;font-size:22px;font-weight:700;
+    color:#fff;background:var(--tomato);border:0;border-radius:12px;cursor:pointer}
+  button:disabled{opacity:.6;cursor:wait}
+  .err{color:var(--tomato);font-size:16px;margin-top:4px;display:none}
+  .done{text-align:center;display:none}
+  .done .emoji{font-size:64px}
+  #companionBox{display:none}
+  footer{text-align:center;color:var(--muted);font-size:15px;margin:20px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="emoji">🍅🌱</div>
+    <h1>陽台農家樂</h1>
+    <p>一起動手種出自己的小菜園</p>
+  </header>
+
+  <section class="card">
+    <h2>活動資訊</h2>
+    <dl class="info">
+      <dt>活動內容</dt>
+      <dd>🍅 小蕃茄盆栽種植<br>🥬 茼蒿（或沙拉菠菜）種子種植</dd>
+      <dt>活動時間</dt>
+      <dd>11月14日（六）下午 2:30 – 4:00</dd>
+      <dt>參加對象</dt>
+      <dd>65 歲以上長者（及陪伴者）<br>身心障礙手冊領用者</dd>
+      <dt>名額</dt>
+      <dd><span class="badge">限 20 名，額滿為止</span></dd>
+      <dt>準備物品</dt>
+      <dd>無需自備，帶著熱情來參加就好 😊</dd>
+    </dl>
+  </section>
+
+  <section class="card" id="formCard">
+    <h2>我要報名</h2>
+    <form id="signupForm" novalidate>
+      <label class="f" for="name">姓名 <span class="req">*</span></label>
+      <input type="text" id="name" autocomplete="name">
+      <div class="err" id="errName">請填寫姓名</div>
+
+      <label class="f" for="phone">聯絡電話 <span class="req">*</span></label>
+      <input type="tel" id="phone" inputmode="tel" placeholder="例：0912345678">
+      <div class="err" id="errPhone">請填寫正確的電話號碼</div>
+
+      <label class="f">參加身分 <span class="req">*</span></label>
+      <label class="opt"><input type="radio" name="identity" value="65歲以上長者">65 歲以上長者</label>
+      <label class="opt"><input type="radio" name="identity" value="身心障礙手冊領用者">身心障礙手冊領用者</label>
+      <div class="err" id="errId">請選擇參加身分</div>
+
+      <label class="f">是否有陪伴者一同參加？</label>
+      <label class="opt"><input type="radio" name="companion" value="否" checked>否</label>
+      <label class="opt"><input type="radio" name="companion" value="是">是</label>
+
+      <div id="companionBox">
+        <label class="f" for="companionName">陪伴者姓名</label>
+        <input type="text" id="companionName">
+      </div>
+
+      <label class="f" for="note">備註（行動需求、飲食或其他說明）</label>
+      <textarea id="note" rows="3"></textarea>
+
+      <button type="submit" id="submitBtn">送出報名</button>
+    </form>
+  </section>
+
+  <section class="card done" id="doneCard">
+    <div class="emoji">🌻</div>
+    <h2 style="border:0;padding:0">報名已送出！</h2>
+    <p>謝謝您的報名，名額有限，將由工作人員與您電話確認。<br>11/14 下午 2:30 見！</p>
+  </section>
+
+  <footer>如有疑問請洽活動承辦人員</footer>
+</div>
+
+<!-- 用於接收 Google Form 回應，避免頁面跳轉 -->
+<iframe name="gf_sink" id="gf_sink" style="display:none"></iframe>
+
+<script>
+/* ===== Google Form 設定（請替換成你的表單資訊）===== */
+const GOOGLE_FORM = {
+  formId: "YOUR_FORM_ID",          // 網址 /forms/d/e/【這段】/viewform
+  entries: {
+    name:          "entry.1111111111",
+    phone:         "entry.2222222222",
+    identity:      "entry.3333333333",
+    companion:     "entry.4444444444",
+    companionName: "entry.5555555555",
+    note:          "entry.6666666666"
+  }
+};
+/* ================================================== */
+
+const $ = id => document.getElementById(id);
+const val = n => (document.querySelector(`input[name="${n}"]:checked`)||{}).value || "";
+
+document.querySelectorAll('input[name="companion"]').forEach(r =>
+  r.addEventListener('change', () => {
+    $('companionBox').style.display = val('companion') === '是' ? 'block' : 'none';
+  })
+);
+
+$('signupForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const data = {
+    name: $('name').value.trim(),
+    phone: $('phone').value.trim(),
+    identity: val('identity'),
+    companion: val('companion'),
+    companionName: val('companion') === '是' ? $('companionName').value.trim() : "",
+    note: $('note').value.trim()
+  };
+
+  let ok = true;
+  const show = (id, bad) => { $(id).style.display = bad ? 'block' : 'none'; if (bad) ok = false; };
+  show('errName', !data.name);
+  show('errPhone', !/^[0-9\-\s()+]{8,15}$/.test(data.phone));
+  show('errId', !data.identity);
+  if (!ok) return;
+
+  $('submitBtn').disabled = true;
+  $('submitBtn').textContent = '送出中…';
+
+  // 以隱藏表單 POST 到 Google Form（不受 CORS 限制）
+  const f = document.createElement('form');
+  f.method = 'POST';
+  f.target = 'gf_sink';
+  f.action = `https://docs.google.com/forms/d/e/${GOOGLE_FORM.formId}/formResponse`;
+  for (const k in GOOGLE_FORM.entries) {
+    const i = document.createElement('input');
+    i.type = 'hidden';
+    i.name = GOOGLE_FORM.entries[k];
+    i.value = data[k];
+    f.appendChild(i);
+  }
+  document.body.appendChild(f);
+  f.submit();
+
+  setTimeout(() => {
+    $('formCard').style.display = 'none';
+    $('doneCard').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 800);
+});
+</script>
+</body>
+</html>
